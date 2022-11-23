@@ -21,6 +21,7 @@ function anim(){
 }
 
 function showResult(imc){
+    form.reset();
     
     document.querySelector('#result').innerHTML = setInner(imc);
 
