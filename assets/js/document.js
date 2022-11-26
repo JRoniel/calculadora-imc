@@ -1,6 +1,7 @@
 let altura = document.querySelector('#altura');
 let peso = document.querySelector('#peso');
 let form = document.querySelector('.form');
+let imc = calcImc(peso.value, altura.value);
 let pl = eval(form.parentElement.clientHeight - form.clientHeight);
 
 form.style.paddingTop= eval(pl/2)+'px';
@@ -36,8 +37,6 @@ document.querySelector('#loadBtn').addEventListener('click', e=>{
     if(!checkDate()){ return; }
 
     e.preventDefault();
-
-    let imc = calcImc(peso.value, altura.value);
 
     showResult(imc);
 
@@ -91,23 +90,23 @@ function setInner(imc){
         break;
 
         case 2:
-            return 'Peso ideal para seu corpo. 🥳';
+            return 'IMC= '+imc+'| Peso ideal para seu corpo. 🥳';
         break;
 
         case 3:
-            return 'Início de excesso de peso. 😬';
+            return 'IMC= '+imc+'| Início de excesso de peso. 😬';
         break;
 
         case 4:
-            return 'Estado de obsidade I 🟡';
+            return 'IMC= '+imc+'| Estado de obsidade I 🟡';
         break;
 
         case 5:
-            return 'Estado de obsidade II 🟠';
+            return 'IMC= '+imc+'| Estado de obsidade II 🟠';
         break;
 
         case 6:
-            return 'Estado de obsidade III 🔴';
+            return 'IMC= '+imc+'| Estado de obsidade III 🔴';
         break;
 
         case 10:
