@@ -1,7 +1,6 @@
 let altura = document.querySelector('#altura');
 let peso = document.querySelector('#peso');
 let form = document.querySelector('.form');
-let myImc = '';
 let pl = eval(form.parentElement.clientHeight - form.clientHeight);
 
 form.style.paddingTop= eval(pl/2)+'px';
@@ -39,8 +38,6 @@ document.querySelector('#loadBtn').addEventListener('click', e=>{
     e.preventDefault();
     
     let imc = calcImc(peso.value, altura.value);
-    
-    this.myImc = imc;
 
     showResult(imc);
 
@@ -91,27 +88,27 @@ function setInner(imc){
     console.log('IMC Recebido no SetInner '+imc);
     switch(imc){
         case 1:
-            return 'IMC= '+myImc+'| Abaixo do peso ideal. 👎';
+            return 'Abaixo do peso ideal. 👎';
         break;
 
         case 2:
-            return 'IMC= '+myImc+'| Peso ideal para seu corpo. 🥳';
+            return 'Peso ideal para seu corpo. 🥳';
         break;
 
         case 3:
-            return 'IMC= '+myImc+'| Início de excesso de peso. 😬';
+            return 'Início de excesso de peso. 😬';
         break;
 
         case 4:
-            return 'IMC= '+myImc+'| Estado de obsidade I 🟡';
+            return 'Estado de obsidade I 🟡';
         break;
 
         case 5:
-            return 'IMC= '+myImc+'| Estado de obsidade II 🟠';
+            return 'Estado de obsidade II 🟠';
         break;
 
         case 6:
-            return 'IMC= '+myImc+'| Estado de obsidade III 🔴';
+            return 'Estado de obsidade III 🔴';
         break;
 
         case 10:
@@ -119,6 +116,7 @@ function setInner(imc){
         break;
 
         default:
+            console.error(imc+' Recebido como parametro no setInner');
             return 'Não encontrei seu IMC na tabela, Você inseriu bem seus dados?';
     }
     
