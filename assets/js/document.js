@@ -21,6 +21,7 @@ function anim(){
 }
 
 function showResult(imc){
+
     form.reset();
     
     document.querySelector('#result').innerHTML = setInner(imc);
@@ -36,7 +37,7 @@ document.querySelector('#loadBtn').addEventListener('click', e=>{
     if(!checkDate()){ return; }
 
     e.preventDefault();
-    
+
     let imc = calcImc(peso.value, altura.value);
 
     showResult(imc);
@@ -85,7 +86,6 @@ function calcImc(peso, alt){
 }
 
 function setInner(imc){
-    console.log('IMC Recebido no SetInner '+imc);
     switch(imc){
         case 1:
             return 'Abaixo do peso ideal. 👎';
@@ -116,7 +116,6 @@ function setInner(imc){
         break;
 
         default:
-            console.error(imc+' Recebido como parametro no setInner');
             return 'Não encontrei seu IMC na tabela, Você inseriu bem seus dados?';
     }
     
