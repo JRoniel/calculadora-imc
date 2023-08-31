@@ -9,17 +9,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <div class="context">
-        <form class="form" autocomplete="off" onchange="anim()">
+    <div class="context"> 
+        <form class="form" autocomplete="off" onchange="updateButtonColor()">
             <h2 class="form-title">Calcule seu IMC</h2>
             <h5 class="form-desc">IMC é o Índice de Massa Corporal</h5>
-            <input required type="text" inputmode="numeric" id='peso' placeholder="73kg"> <br />
-            <input required type="text" inputmode="numeric" id='altura' placeholder="183cm"> <br />
-            <input type="text" inputmode="numeric" id="lastInput" placeholder="Idade"> 
+            <input required type="text" inputmode="numeric" id='altura' placeholder="Ex: 183cm"> <br />
+            <input required type="text" class="lastInput" inputmode="numeric" id='peso' placeholder="Ex: 73kg">
             <button type="reset" id="loadBtn"><i class="icon fa fa-calculator"></i></button>
             <span id="result" style="display: none;">Texto para resultado</span>
         </form>
     </div>
+
+    <h5 class="imc-desc">"O cálculo do IMC não é indicado para pacientes oncológicos, gestantes e atletas. <br />
+    No caso dos esportistas, não é interessante, pois tais indivíduos possuem um peso maior por conta do ganho de massa muscular."</h5>
 
     <script src="assets/js/document.js"></script>
 </body>

@@ -1,122 +1,88 @@
-let altura = document.querySelector('#altura');
-let peso = document.querySelector('#peso');
-let form = document.querySelector('.form');
-let pl = eval(form.parentElement.clientHeight - form.clientHeight);
+// Selecionar os elementos apenas uma vez
+const alturaInput = document.querySelector('#altura');
+const pesoInput = document.querySelector('#peso');
+const form = document.querySelector('.form');
+const loadBtn = document.querySelector('#loadBtn');
+const resultContainer = document.querySelector('#result');
 
-form.style.paddingTop= eval(pl/2)+'px';
+// Calcular o padding top do formulário
+const paddingTop = (form.parentElement.clientHeight - form.clientHeight) / 2;
+form.style.paddingTop = `${paddingTop}px`;
 
-function checkDate(){
-    if(peso.value.length >= 2 && altura.value.length >= 1){
-        return true;
-    }
-
-    return false; 
+// Verificar se os campos têm dados válidos
+function checkData() {
+    return pesoInput.value.length >= 2 && alturaInput.value.length >= 1;
 }
 
-function anim(){
-    
-    if(checkDate()){
-        document.querySelector('#loadBtn').style.background = '#2ecc71';
-    }
+// Alterar a cor de fundo do botão de acordo com os dados válidos
+function updateButtonColor() {
+    loadBtn.style.background = checkData() ? '#2ecc71' : '#000';
 }
 
-function showResult(imc){
-
+// Exibir o resultado do cálculo de IMC
+function showResult(imc) {
     form.reset();
-    
-    document.querySelector('#result').innerHTML = setInner(imc);
-
-    document.querySelector('#result').style.display = 'block';
-
-    document.querySelector('#loadBtn').style.background = '#000';
-
+    resultContainer.innerHTML = setInner(imc);
+    resultContainer.style.display = 'block';
+    loadBtn.style.background = '#000';
 }
 
-document.querySelector('#loadBtn').addEventListener('click', e=>{
-    
-    if(!checkDate()){ return; }
-
+// Adicionar evento de clique ao botão
+loadBtn.addEventListener('click', e => {
     e.preventDefault();
 
-    let imc = calcImc(peso.value, altura.value);
+    if (!checkData()) {
+        return;
+    }
 
+    const imc = calcImc(pesoInput.value, alturaInput.value);
     showResult(imc);
 
     setTimeout(() => {
-
-        document.querySelector('#result').style.display = 'none'; 
-        document.querySelector('#loadBtn').style.background = '#000';
-
+        resultContainer.style.display = 'none';
     }, 5500);
 });
 
-/** CALCULANDO IMC COM ENTRADAS 
- * IMC = PESO (ALTURA * ALTURA)
-*/
-function calcImc(peso, alt){
-    let a = alt.toString();
+// Função para calcular o IMC
+function calcImc(peso, altura) {
+    const b = parseFloat(`${altura[0]}.${altura.substr(1)}`);
+    const imc = parseInt(peso / (b * b));
 
-    let b = parseFloat(a.substr(0, 1) +'.'+ a.substr(1));
-
-    let num = parseInt(peso/(b*b));
-
-    if(num <= 18.5){
-        //a= Abaixo do peso
+    if (imc < 17) {
         return 1;
-    } else if(num <= 24.9){
-        //b= Peso normal
+    } else if (imc >= 17 && imc < 18.5) {
         return 2;
-    } else if (num <= 29.9){
-        //c= Excesso de peso
+    } else if (imc >= 18.5 && imc < 25) {
         return 3;
-    } else if(num <= 34.9){
-        //d= Obsidade I
+    } else if (imc >= 25 && imc < 30) {
         return 4;
-    } else if(num <= 39.9){
-        //e= Obsidade II
+    } else if (imc >= 30 && imc < 35) {
         return 5;
-    } else if(num <= 49.9){
-        //f= Obsidade III
+    } else if (imc >= 35 && imc < 40) {
         return 6;
-    } else if(num >= 50){
-        return 10;
+    } else {
+        return 7;
     }
-
-
 }
 
-function setInner(imc){
-    switch(imc){
+// Função para definir a mensagem do resultado
+function setInner(imc) {
+    switch (imc) {
         case 1:
-            return 'Abaixo do peso ideal. 👎';
-        break;
-
+            return 'Muito abaixo do peso';
         case 2:
-            return 'Peso ideal para seu corpo. 🥳';
-        break;
-
+            return 'Abaixo do peso';
         case 3:
-            return 'Início de excesso de peso. 😬';
-        break;
-
+            return 'Peso normal';
         case 4:
-            return 'Estado de obsidade I 🟡';
-        break;
-
+            return 'Acima do peso';
         case 5:
-            return 'Estado de obsidade II 🟠';
-        break;
-
+            return 'Obesidade I';
         case 6:
-            return 'Estado de obsidade III 🔴';
-        break;
-
-        case 10:
-            return 'Sério isso? Eu sou uma aplicação séria! 🙄';
-        break;
-
+            return 'Obesidade II (severa)';
+        case 7:
+            return 'Obesidade III (mórbida)';
         default:
-            return 'Não encontrei seu IMC na tabela, Você inseriu bem seus dados?';
+            return 'Não encontrei seu IMC na tabela. Você inseriu corretamente seus dados?';
     }
-    
 }

@@ -13,7 +13,12 @@ body {
 .context {
     width: 360px;
     margin: auto;
-    height: 100vh;
+    height: 60vh;
+}
+
+.imc-desc {
+    color: #2ecc71;
+    text-align: center;
 }
 
 .form {
@@ -61,7 +66,7 @@ body {
     border-color: #fff;
 }
 
-.form #lastInput {
+.form .lastInput {
     width: 80%;
     display: inline;
     border-color: #fff;
